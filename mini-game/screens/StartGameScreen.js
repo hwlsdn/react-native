@@ -1,17 +1,29 @@
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../components/ui/PrimaryButton";
+import Colors from "../constants/colors";
 
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   function numberInputHandler(enteredText) {
     setEnteredNumber(enteredText);
   }
 
-  function confirmInputHandler(){
-    
+  function resetInputHandler() {
+    setEnteredNumber("");
+  }
+
+  function confirmInputHandler() {
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert("Invalid number!", "Number has to be between 1 and 99", [
+        { text: "Okay", style: "destructive", onPress: resetInputHandler },
+      ]);
+      return;
+    }
+    onPickNumber(chosenNumber);
   }
 
   return (
@@ -27,7 +39,7 @@ function StartGameScreen() {
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: "#3b021f",
+    backgroundColor: Colors.primary800,
     elevation: 4,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 4 },
@@ -59,9 +71,9 @@ const styles = StyleSheet.create({
     width: 50,
     textAlign: "center",
     fontSize: 32,
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.accent500,
     marginVertical: 8,
     fontWeight: "bold",
   },
