@@ -1,10 +1,35 @@
 import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
 import { Colors } from "../constants/colors";
 import RestaurantCard from "./RestaurantCard";
+import { sanityClient } from "../util/sanity";
 
 const FeaturedRow = ({ id, title, description, featuredCategory }) => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+    *[_type == "featured" && _id == "${id}"]{
+        ...,
+        restaurants[]->{
+            ...,
+            dishes[]->,
+            type-> {
+                name
+            }
+        },
+    }[0]
+    `,
+        { id }
+      )
+      .then((data) => {
+        setRestaurants(data?.restaurants);
+      });
+  }, [id]);
+
   return (
     <View>
       <View className="mt-4 flex-row items-center justify-between px-4">
@@ -21,42 +46,22 @@ const FeaturedRow = ({ id, title, description, featuredCategory }) => {
         className="pt-4"
       >
         {/* Restaurant Cards */}
-        <RestaurantCard
-          id={123}
-          imgUrl="https://links.papareact.com/gn7"
-          title="Sushi Heaven"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="Sushi, Japanese, Asian"
-          dishes={["sushi", "fish"]}
-          long={20}
-          lat={15}
-        />
-        <RestaurantCard
-          id={123}
-          imgUrl="https://links.papareact.com/gn7"
-          title="Sushi Heaven"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="Sushi, Japanese, Asian"
-          dishes={["sushi", "fish"]}
-          long={20}
-          lat={15}
-        />
-        <RestaurantCard
-          id={123}
-          imgUrl="https://links.papareact.com/gn7"
-          title="Sushi Heaven"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="Sushi, Japanese, Asian"
-          dishes={["sushi", "fish"]}
-          long={20}
-          lat={15}
-        />
+
+        {restaurants?.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            title={restaurant.name}
+            rating={restaurant.rating}
+            dishes={restaurant.dishes}
+            short_description={restaurant.short_description}
+            genre={restaurant.type?.name}
+            long={restaurant.long}
+            lat={restaurant.lat}
+            address={restaurant.address}
+          />
+        ))}
       </ScrollView>
     </View>
   );

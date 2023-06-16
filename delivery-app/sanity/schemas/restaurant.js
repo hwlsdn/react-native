@@ -13,7 +13,7 @@ export default defineType({
     }),
     defineField({
       name: 'short_description',
-      title: 'short_description',
+      title: 'Short Description',
       type: 'string',
       validation: (Rule) => Rule.max(200),
     }),
