@@ -47,7 +47,7 @@ const HomeScreen = () => {
           minLength={2}
           enablePoweredByContainer={false}
           query={{ key: GOOGLE_MAPS_APIKEY, language: "en" }}
-          placeholder="Where from?"
+          placeholder="Where are you right now?"
           nearbyPlacesAPI="GooglePlacesSearch"
           debounce={400}
         />
