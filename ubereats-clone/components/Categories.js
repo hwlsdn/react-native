@@ -30,7 +30,7 @@ const items = [
 
 const Categories = () => {
   return (
-    <View className="m-1">
+    <View className="m-1 mt-0 pt-1 bg-white">
       <ScrollView
         showsHorizontalScrollIndicator={false}
         horizontal
