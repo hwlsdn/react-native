@@ -1,5 +1,5 @@
 # Interactive uber clone app created using React Native.
 
-![HomeScreen](./assets/1.png)
-![MapScreen](./assets/2.png)
-![RideOptionsScreen](./assets/3.png)
+<img src="./assets/1.png" width="200" />
+<img src="./assets/2.png" width="200" />
+<img src="./assets/3.png" width="200" />
