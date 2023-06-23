@@ -1,13 +1,18 @@
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React from "react";
 import HeaderTabs from "../components/HeaderTabs";
 import SearchBar from "../components/SearchBar";
+import Categories from "../components/Categories";
 
 const HomeScreen = () => {
   return (
     <SafeAreaView>
-      <HeaderTabs />
-      <SearchBar />
+      <View>
+        <HeaderTabs />
+        <SearchBar />
+      </View>
+
+      <Categories />
     </SafeAreaView>
   );
 };
