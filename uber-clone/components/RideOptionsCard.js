@@ -10,6 +10,8 @@ import {
 import React, { useState } from "react";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectTravelTimeInformation } from "../slices/navSlice";
 
 const data = [
   {
@@ -32,9 +34,12 @@ const data = [
   },
 ];
 
+const SURGE_CHARGE_RATE = 1.5;
+
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
   return (
     <SafeAreaView className="bg-white flex-grow">
@@ -45,7 +50,10 @@ const RideOptionsCard = () => {
         >
           <Icon name="chevron-left" type="fontawesome" color="white" />
         </TouchableOpacity>
-        <Text className="text-center py-5 text-xl">Select a Ride</Text>
+        <Text className="text-center py-5 text-xl">
+          Select a Ride -{" "}
+          {(travelTimeInformation?.distance?.value / 1000).toFixed(2)} km
+        </Text>
       </View>
 
       <FlatList
@@ -62,15 +70,27 @@ const RideOptionsCard = () => {
               style={{ width: 100, height: 100, resizeMode: "contain" }}
               source={{ uri: image }}
             />
-            <View className="-ml-6">
+            <View className="-ml-6 mt-4 items-center">
               <Text className="text-xl font-semibold">{title}</Text>
-              <Text>Travel time...</Text>
+              <Text className="pt-1">
+                {travelTimeInformation?.duration?.text}{" "}
+              </Text>
             </View>
-            <Text className="text-xl">$95</Text>
+            <Text className="text-xl">
+              {new Intl.NumberFormat("en-us", {
+                style: "currency",
+                currency: "USD",
+              }).format(
+                (travelTimeInformation?.duration?.value *
+                  SURGE_CHARGE_RATE *
+                  multiplier) /
+                  100
+              )}
+            </Text>
           </TouchableOpacity>
         )}
       />
-      <View>
+      <View className="mt-auto border-t border-gray-200">
         <TouchableOpacity
           disabled={!selected}
           className={`bg-black py-3 m-3 ${!selected && "bg-gray-300"}`}
@@ -85,5 +105,3 @@ const RideOptionsCard = () => {
 };
 
 export default RideOptionsCard;
-
-const styles = StyleSheet.create({});
