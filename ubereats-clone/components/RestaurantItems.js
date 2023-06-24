@@ -74,7 +74,9 @@ const RestaurantInfo = ({ item }) => {
         </Text>
       </View>
       <View className="m-1 mr-5 mb-3 bg-black rounded-full p-3 shadow-lg">
-        <Text className="text-white font-semibold">{item.rating.toFixed(1)}</Text>
+        <Text className="text-white font-semibold">
+          {item.rating.toFixed(1)}
+        </Text>
       </View>
     </View>
   );
