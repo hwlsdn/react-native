@@ -1,17 +1,16 @@
 import { SafeAreaView, ScrollView, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderTabs from "../components/HeaderTabs";
 import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
 import RestaurantItems from "../components/RestaurantItems";
-import { useState } from "react";
 import { YELP_API_KEY } from "@env";
 
 const HomeScreen = () => {
   const [restaurantData, setRestaurantData] = useState([]);
 
   const getRestaurantFromYelp = () => {
-    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=San%20Francisco&term=restaurants&sort_by=best_match&limit=20`;
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=San%20Francisco&term=restaurants&limit=20`;
 
     const apiOptions = {
       headers: {
