@@ -1,50 +1,51 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export const localRestaurants = [
-  {
-    id: 1,
-    image: require("../assets/images/burger.jpg"),
-    title: "Flip & Shake",
-    time: "30-45 min",
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    image: require("../assets/images/indian-food.jpg"),
-    title: "The Ganges",
-    time: "40-65 min",
-    rating: 4.8,
-  },
-  {
-    id: 3,
-    image: require("../assets/images/burger.jpg"),
-    title: "Flip & Shake",
-    time: "30-45 min",
-    rating: 4.5,
-  },
-  {
-    id: 4,
-    image: require("../assets/images/indian-food.jpg"),
-    title: "The Ganges",
-    time: "40-65 min",
-    rating: 4.8,
-  },
-];
+// export const localRestaurants = [
+//   {
+//     image_url: require("../assets/images/burger.jpg"),
+//     name: "Flip & Shake",
+//     categories: ["Fast Food", "Western"],
+//     rating: 4.5,
+//     reviews: 1200,
+//     price: "$$",
+//   },
+//   {
+//     image_url: require("../assets/images/indian-food.jpg"),
+//     name: "The Ganges",
+//     categories: ["Asian", "Indian"],
+//     rating: 4.8,
+//     reviews: 1400,
+//     price: "$$",
+//   },
+//   {
+//     image_url: require("../assets/images/burger.jpg"),
+//     name: "Flip & Shake",
+//     categories: ["Fast Food", "Western"],
+//     rating: 4.5,
+//     reviews: 1200,
+//     price: "$$",
+//   },
+//   {
+//     image_url: require("../assets/images/indian-food.jpg"),
+//     name: "The Ganges",
+//     categories: ["Asian", "Indian"],
+//     rating: 4.8,
+//     reviews: 1400,
+//     price: "$$",
+//   },
+// ];
 
 const RestaurantImage = ({ item }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
     <View>
-      <Image style={{ width: "100%", height: 200 }} source={item.image} />
+      <Image
+        style={{ width: "100%", height: 200 }}
+        source={{ uri: item.image_url }}
+      />
       <TouchableOpacity
         onPress={() => setIsLiked(!isLiked)}
         style={{ position: "absolute", right: 20, top: 20 }}
@@ -67,22 +68,24 @@ const RestaurantInfo = ({ item }) => {
   return (
     <View className="flex-row justify-between items-center mt-2">
       <View className="m-1 ml-3">
-        <Text className="font-medium text-base">{item.title}</Text>
-        <Text className="font-light text-sm text-gray-600">{item.time}</Text>
+        <Text className="font-medium text-base">{item.name}</Text>
+        <Text className="font-light text-sm text-gray-600">
+          {item.review_count} reviews
+        </Text>
       </View>
       <View className="m-1 mr-5 mb-3 bg-black rounded-full p-3 shadow-lg">
-        <Text className="text-white font-semibold">{item.rating}</Text>
+        <Text className="text-white font-semibold">{item.rating.toFixed(1)}</Text>
       </View>
     </View>
   );
 };
 
-const RestaurantItems = ({restaurantData}) => {
+const RestaurantItems = ({ restaurantData }) => {
   return (
     <View className="mb-36">
-      {restaurantData.map((item) => (
+      {restaurantData.map((item, index) => (
         <View
-          key={item.id}
+          key={index}
           className="mt-1 mb-1 p-2 pt-2 border-b border-gray-200"
         >
           <RestaurantImage item={item} />
