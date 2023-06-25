@@ -84,7 +84,7 @@ const RestaurantInfo = ({ item }) => {
 
 const RestaurantItems = ({ restaurantData }) => {
   return (
-    <View className="mb-36">
+    <View>
       {restaurantData.map((item, index) => (
         <View
           key={index}

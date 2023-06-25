@@ -20,8 +20,7 @@ const HeaderButton = (props) => (
   </View>
 );
 
-const HeaderTabs = () => {
-  const [activeTab, setActiveTab] = useState("Delivery");
+const HeaderTabs = ({activeTab, setActiveTab}) => {
 
   return (
     <View className="flex-row justify-evenly">
