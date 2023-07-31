@@ -43,8 +43,8 @@ const RestaurantImage = ({ item }) => {
   return (
     <View>
       <Image
-        style={{ width: "100%", height: 200 }}
         source={{ uri: item.image_url }}
+        style={{ width: "100%", height: 200 }}
       />
       <TouchableOpacity
         onPress={() => setIsLiked(!isLiked)}

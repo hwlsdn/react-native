@@ -61,9 +61,9 @@ export default Categories;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
     paddingVertical: 5,
     paddingLeft: 5,
+    backgroundColor: "#fff",
   },
   image: {
     width: 50,
