@@ -1,11 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 
-const HeaderButton = ({
-  text,
-  activeTab,
-  setActiveTab,
-}) => {
+const HeaderButton = ({ text, activeTab, setActiveTab }) => {
   return (
     <TouchableOpacity
       style={{
@@ -29,9 +25,7 @@ const HeaderButton = ({
   );
 };
 
-const HeaderTabs = () => {
-  const [activeTab, setActiveTab] = useState("Delivery");
-
+const HeaderTabs = ({ activeTab, setActiveTab }) => {
   return (
     <View style={{ flexDirection: "row", alignSelf: "center" }}>
       <HeaderButton

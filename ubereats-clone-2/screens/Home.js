@@ -10,9 +10,11 @@ import { YELP_API_KEY } from "@env";
 
 const Home = () => {
   const [restaurantData, setRestaurantData] = useState([]);
+  const [city, setCity] = useState("San Francisco");
+  const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = () => {
-    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=SanDiego&term=restaurants&sort_by=best_match&limit=20`;
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=${city}&term=restaurants&sort_by=best_match&limit=20`;
 
     const apiOptions = {
       method: "GET",
@@ -27,7 +29,7 @@ const Home = () => {
         .then((json) =>
           setRestaurantData(
             json.businesses.filter((business) =>
-              business.transactions.includes("delivery")
+              business.transactions.includes(activeTab.toLowerCase())
             )
           )
         );
@@ -36,13 +38,13 @@ const Home = () => {
 
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, []);
+  }, [city, activeTab]);
 
   return (
     <SafeAreaView>
       <View>
-        <HeaderTabs />
-        <SearchBar />
+        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <SearchBar cityHandler={setCity} />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
