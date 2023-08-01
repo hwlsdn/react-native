@@ -52,28 +52,6 @@ const RestaurantItems = ({ restaurantData }) => {
   );
 };
 
-// const RestaurantImage = ({ item }) => {
-//   const [isLiked, setIsLiked] = useState(false);
-//   return (
-//     <View>
-//       <Image
-//         source={{ uri: item.image_url }}
-//         style={{ width: "100%", height: 200 }}
-//       />
-//       <TouchableOpacity
-//         onPress={() => setIsLiked(!isLiked)}
-//         style={{ position: "absolute", right: 20, top: 20 }}
-//       >
-//         <MaterialCommunityIcons
-//           name={isLiked ? "heart" : "heart-outline"}
-//           size={25}
-//           color={isLiked ? "red" : "white"}
-//         />
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
 const RestaurantImage = ({ item }) => {
   const [isLiked, setIsLiked] = useState(false);
 
