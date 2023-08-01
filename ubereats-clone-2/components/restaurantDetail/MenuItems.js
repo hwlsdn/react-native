@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const foods = [
+const dummy_foods = [
   {
     title: "Cheese Burger",
     description: "With beef, cheddar cheese, lettuce, tomato and onion",
@@ -28,14 +28,34 @@ const foods = [
   },
 ];
 
-const MenuItem = () => {
+const MenuItems = () => {
   return (
     <View>
-      <Text>MenuItem</Text>
+      <View style={styles.menuItem}>
+        <FoodInfo food={dummy_foods[0]} />
+      </View>
     </View>
   );
 };
 
-export default MenuItem;
+const FoodInfo = (props) => {
+  return (
+    <View style={{ width: 240, justifyContent: "space-evenly" }}>
+      <Text style={{ fontSize: 19, fontWeight: "600", marginBottom: 5 }}>
+        {props.food.title}
+      </Text>
+      <Text>{props.food.description}</Text>
+      <Text style={{ marginTop: 5 }}>{props.food.price}</Text>
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({});
+export default MenuItems;
+
+const styles = StyleSheet.create({
+  menuItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 20,
+  },
+});
