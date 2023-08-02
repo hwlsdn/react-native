@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Home from "./screens/Home";
-import RestaurantDetail from "./screens/RestaurantDetail";
+import React from "react";
+import RootNavigation from "./RootNavigation";
+import { LogBox } from "react-native";
+
+LogBox.ignoreAllLogs();
 
 export default function App() {
-  return <RestaurantDetail />;
+  return <RootNavigation />;
 }
-
-const styles = StyleSheet.create({});

@@ -1,25 +1,47 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const image = require("../../assets/images/burger.jpg");
-const title = "Flip & Shake";
-const description = "Fast Food • Western • 4.5 (1200 reviews)";
+// const yelpRestaurantInfo = {
+//   name: "Farmhouse Kitchen Thai Cuisine",
+//   image: "https://i.imgur.com/2nCt3Sbl.jpg",
+//   price: "$$",
+//   reviews: "1500",
+//   rating: 4.5,
+//   categories: [{ title: "Thai" }, { title: "Comfort Food" }],
+// };
 
-const About = () => {
+// const image = require("../../assets/images/burger.jpg");
+// const title = "Flip & Shake";
+// const description = "Fast Food • Western • 4.5 (1200 reviews)";
+
+// const { name, image, price, reviews, rating, categories } = yelpRestaurantInfo;
+
+const About = ({ route }) => {
+  const { name, image, price, reviews, rating, categories } = route.params;
+
+  const formattedCategories = categories.map((cat) => cat.title).join(" • ");
+
+  const description = `${formattedCategories} • ${rating.toFixed(1)} (${reviews} reviews)`;
+
   return (
     <View>
       <RestaurantImage image={image} />
-      <RestaurantTitle title={title} />
+      <RestaurantName name={name} />
       <RestaurantDescription description={description} />
     </View>
   );
 };
 
 const RestaurantImage = (props) => {
-  return <Image source={props.image} style={{ width: "100%", height: 240 }} />;
+  return (
+    <Image
+      source={{ uri: props.image }}
+      style={{ width: "100%", height: 240 }}
+    />
+  );
 };
 
-const RestaurantTitle = (props) => {
+const RestaurantName = (props) => {
   return (
     <Text
       style={{
@@ -29,7 +51,7 @@ const RestaurantTitle = (props) => {
         marginHorizontal: 15,
       }}
     >
-      {props.title}
+      {props.name}
     </Text>
   );
 };

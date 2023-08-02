@@ -37,13 +37,24 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 //   },
 // ];
 
-const RestaurantItems = ({ restaurantData }) => {
+const RestaurantItems = ({ navigation, restaurantData }) => {
   return (
     <View>
       {restaurantData.map((item, index) => (
         <View key={index} style={{ padding: 10 }}>
           <RestaurantImage item={item} />
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("RestaurantDetail", {
+                name: item.name,
+                image: item.image_url,
+                price: item.price,
+                reviews: item.review_count,
+                rating: item.rating,
+                categories: item.categories,
+              })
+            }
+          >
             <RestaurantInfo item={item} />
           </TouchableOpacity>
         </View>

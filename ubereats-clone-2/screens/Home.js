@@ -10,7 +10,7 @@ import { YELP_API_KEY } from "@env";
 import { Divider } from "react-native-elements";
 import BottomTabs from "../components/home/BottomTabs";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [restaurantData, setRestaurantData] = useState([]);
   const [city, setCity] = useState("San Francisco");
   const [activeTab, setActiveTab] = useState("Delivery");
@@ -43,16 +43,20 @@ const Home = () => {
   }, [city, activeTab]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "white" }}>
       <View>
         <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         <SearchBar cityHandler={setCity} />
       </View>
       <Categories />
       <ScrollView
-      style={{maxHeight: "70%"}} 
-      showsVerticalScrollIndicator={false}>
-        <RestaurantItems restaurantData={restaurantData} />
+        style={{ maxHeight: "70%" }}
+        showsVerticalScrollIndicator={false}
+      >
+        <RestaurantItems
+          restaurantData={restaurantData}
+          navigation={navigation}
+        />
       </ScrollView>
       <Divider width={1} />
       <BottomTabs />
