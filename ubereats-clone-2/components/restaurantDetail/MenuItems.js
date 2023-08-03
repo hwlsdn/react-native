@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import React from "react";
 import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useDispatch, useSelector } from "react-redux";
 
 const dummy_foods = [
   {
@@ -30,7 +31,27 @@ const dummy_foods = [
   },
 ];
 
-const MenuItems = () => {
+const MenuItems = ({ restaurantName }) => {
+  const dispatch = useDispatch();
+  const selectItem = (item, checkboxValue) => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        restaurantName: restaurantName,
+        checkboxValue: checkboxValue,
+      },
+    });
+  };
+
+  const cartItems = useSelector(
+    (state) => state.cartReducer.selectedItems.items
+  );
+
+  const isFoodInCart = (food, cartItems) => {
+    return Boolean(cartItems.find((item) => item.title === food.title));
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -39,7 +60,11 @@ const MenuItems = () => {
       {dummy_foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItem}>
-            <BouncyCheckbox fillColor="green" />
+            <BouncyCheckbox
+              isChecked={isFoodInCart(food, cartItems)}
+              fillColor="green"
+              onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+            />
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>
@@ -56,7 +81,7 @@ const MenuItems = () => {
 
 const FoodInfo = (props) => {
   return (
-    <View style={{flex: 1, justifyContent: "space-evenly", marginLeft: 10 }}>
+    <View style={{ flex: 1, justifyContent: "space-evenly", marginLeft: 10 }}>
       <Text style={{ fontSize: 19, fontWeight: "600", marginBottom: 5 }}>
         {props.food.title}
       </Text>
