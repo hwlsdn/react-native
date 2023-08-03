@@ -34,12 +34,12 @@ const MenuItems = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{ maxHeight: "55%" }}
+      style={{ maxHeight: "45%" }}
     >
       {dummy_foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItem}>
-            <BouncyCheckbox />
+            <BouncyCheckbox fillColor="green" />
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>
