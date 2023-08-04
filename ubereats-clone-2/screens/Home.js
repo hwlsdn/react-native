@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = () => {
-    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=${city}&term=restaurants&sort_by=best_match&limit=20`;
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?location=${city}&term=restaurants&sort_by=best_match&limit=30`;
 
     const apiOptions = {
       method: "GET",
