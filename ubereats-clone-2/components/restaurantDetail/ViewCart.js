@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 
-const ViewCart = () => {
+const ViewCart = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { items, restaurantName } = useSelector(
@@ -19,6 +19,13 @@ const ViewCart = () => {
     style: "currency",
     currency: "USD",
   });
+
+  const makeOrder = () => {
+    setModalVisible(false);
+    navigation.navigate("OrderCompleted", {
+      restaurantName: restaurantName,
+    });
+  };
 
   const checkoutModalContent = () => {
     return (
@@ -36,7 +43,7 @@ const ViewCart = () => {
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <TouchableOpacity
                 style={styles.checkoutButton}
-                onPress={() => setModalVisible(false)}
+                onPress={() => makeOrder()}
               >
                 <Text style={styles.checkoutButtonText}>Checkout</Text>
               </TouchableOpacity>
