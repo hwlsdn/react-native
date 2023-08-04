@@ -2,9 +2,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
+import LottieView from "lottie-react-native";
 
 const ViewCart = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
@@ -21,10 +23,13 @@ const ViewCart = ({ navigation }) => {
   });
 
   const makeOrder = () => {
-    setModalVisible(false);
-    navigation.navigate("OrderCompleted", {
-      restaurantName: restaurantName,
-    });
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate("OrderCompleted", {
+        restaurantName: restaurantName,
+      });
+    }, 2000);
   };
 
   const checkoutModalContent = () => {
@@ -43,7 +48,10 @@ const ViewCart = ({ navigation }) => {
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <TouchableOpacity
                 style={styles.checkoutButton}
-                onPress={() => makeOrder()}
+                onPress={() => {
+                  makeOrder();
+                  setModalVisible(false);
+                }}
               >
                 <Text style={styles.checkoutButtonText}>Checkout</Text>
               </TouchableOpacity>
@@ -51,6 +59,19 @@ const ViewCart = ({ navigation }) => {
           </View>
         </View>
       </>
+    );
+  };
+
+  const LoadingScreen = () => {
+    return (
+      <View style={styles.loadingScreen}>
+        <LottieView
+          style={{ height: 200 }}
+          source={require("../../assets/animations/scanner.json")}
+          autoPlay
+          speed={3}
+        />
+      </View>
     );
   };
 
@@ -82,6 +103,7 @@ const ViewCart = ({ navigation }) => {
       ) : (
         <></>
       )}
+      {loading ? <LoadingScreen /> : <></>}
     </>
   );
 };
@@ -148,5 +170,16 @@ const styles = StyleSheet.create({
   checkoutButtonText: {
     color: "white",
     fontSize: 20,
+  },
+  loadingScreen: {
+    backgroundColor: "black",
+    position: "absolute",
+    opacity: 0.6,
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    zIndex: 999,
   },
 });

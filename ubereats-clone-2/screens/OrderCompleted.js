@@ -1,8 +1,25 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LottieView from "lottie-react-native";
 
-const OrderCompleted = ({ route }) => {
+const OrderCompleted = ({ route, navigation }) => {
+  const [mounted, setMounted] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setMounted(false);
+    }, 3500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (mounted) {
+    return <MountedScreen restaurantName={route.params.restaurantName} />;
+  } else {
+    navigation.navigate("Home");
+  }
+};
+
+const MountedScreen = ({ restaurantName }) => {
   return (
     <SafeAreaView style={styles.container}>
       <LottieView
@@ -12,8 +29,7 @@ const OrderCompleted = ({ route }) => {
         speed={0.5}
       />
       <Text style={styles.orderText}>
-        Your order at{" "}
-        <Text style={styles.boldText}>{route.params.restaurantName}</Text> has
+        Your order at <Text style={styles.boldText}>{restaurantName}</Text> has
         been placed.
       </Text>
       <LottieView
