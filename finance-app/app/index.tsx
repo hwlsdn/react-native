@@ -21,15 +21,15 @@ const Page = () => {
           style={styles.video}
         />
       )}
-      <View style={{ padding: 20, marginTop: 50 }}>
-        <Text style={styles.header}>We change the crypto industry</Text>
+      <View style={{ padding: 20, marginTop: 70 }}>
+        <Text style={styles.header}>Changing the landscape of crypto trading</Text>
       </View>
       <View style={styles.buttons}>
         <Link
           href={"/login"}
           style={[
             defaultStyles.pillButton,
-            { flex: 1, backgroundColor: Colors.dark },
+            { flex: 1, backgroundColor: Colors.primary },
           ]}
           asChild
         >
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 20,
-    marginBottom: 60,
+    marginBottom: 100,
     paddingHorizontal: 20,
   },
   loginFont: {

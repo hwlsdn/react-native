@@ -5,7 +5,7 @@ export const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    padding: 16,
+    padding: 25,
   },
   header: {
     fontSize: 40,
@@ -25,7 +25,7 @@ export const defaultStyles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 18,
-    marginTop: 20,
+    marginTop: 15,
     color: Colors.gray,
   },
   buttonText: {
